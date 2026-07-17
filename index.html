@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANOR TECH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--red:#C8004B;--red2:#E0005A;--red3:#A0003A;
+--red-soft:rgba(200,0,75,0.08);--red-border:rgba(200,0,75,0.2);
+--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;
+--surface:#1A1A1A;--surface2:#1F1F1F;
+--text:#F0F0F0;--text2:#888;--text3:#444;
+--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.04);
+--ff:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ff);font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:all .3s}
+nav.scrolled{background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 0}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-icon{width:36px;height:36px}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-anor{font-size:13px;font-weight:800;color:#fff;letter-spacing:2px;text-transform:uppercase}
+.logo-tech{font-size:13px;font-weight:800;color:var(--red2);letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.lang-switcher{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:3px}
+.lang-btn{padding:5px 10px;border-radius:5px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;border:none;background:transparent;font-family:var(--ff);transition:all .2s;letter-spacing:0.5px}
+.lang-btn.active{background:var(--red);color:#fff}
+.lang-btn:hover:not(.active){color:var(--text)}
+.nav-cta{background:var(--red);color:#fff;padding:9px 20px;border-radius:7px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--red2)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px;border-bottom:1px solid var(--border)}
+canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-glow{position:absolute;top:30%;left:20%;width:500px;height:500px;background:radial-gradient(circle,rgba(200,0,75,0.1) 0%,transparent 65%);pointer-events:none}
+.hero-inner{max-width:1160px;margin:0 auto;padding:0 40px;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--red-soft);border:1px solid var(--red-border);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:600;color:var(--red2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:28px}
+.hero-badge-dot{width:6px;height:6px;background:var(--red2);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-size:clamp(36px,5.5vw,68px);font-weight:800;line-height:1.02;letter-spacing:-2.5px;color:#fff;max-width:760px;margin-bottom:24px}
+.hero-h1 em{font-style:normal;color:var(--red2)}
+.hero-sub{color:var(--text2);font-size:18px;line-height:1.65;max-width:520px;margin-bottom:40px;font-weight:400}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-red{background:var(--red);color:#fff;padding:13px 26px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;font-family:var(--ff)}
+.btn-red:hover{background:var(--red2);transform:translateY(-1px)}
+.btn-ghost{border:1px solid var(--border);color:var(--text2);padding:13px 26px;border-radius:8px;font-size:15px;font-weight:500;text-decoration:none;transition:all .22s;display:inline-flex;align-items:center;gap:8px}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.2);color:var(--text)}
+
+/* SHARED */
+section{min-height:100vh;display:flex;align-items:center;padding:100px 0;border-bottom:1px solid var(--border)}
+.container{max-width:1160px;margin:0 auto;padding:0 40px;width:100%}
+.s-tag{font-size:11px;font-weight:700;color:var(--red2);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.s-h2{font-size:clamp(28px,3.2vw,44px);font-weight:800;letter-spacing:-1.5px;color:#fff;line-height:1.1;margin-bottom:18px}
+.s-sub{color:var(--text2);font-size:17px;line-height:1.7}
+.rule{display:none}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-right{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.principle{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color .2s}
+.principle:hover{border-color:var(--red-border)}
+.p-icon{font-size:22px;margin-bottom:12px}
+.p-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:5px}
+.p-desc{font-size:13px;color:var(--text2);line-height:1.55}
+
+/* SOLUTIONS */
+#solutions{background:var(--bg)}
+.sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:48px}
+.sol-card{background:var(--bg);padding:32px;transition:background .2s;cursor:default}
+.sol-card:hover{background:var(--surface)}
+.sol-ico{font-size:26px;margin-bottom:16px}
+.sol-card h3{font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
+.sol-card p{font-size:14px;color:var(--text2);line-height:1.6}
+
+/* PROCESS */
+#process{background:var(--bg2)}
+.proc-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative}
+.proc-steps::after{content:'';position:absolute;top:20px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--border),var(--red-border),var(--border),transparent)}
+.proc-step{text-align:center;padding:0 12px}
+.ps-num{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--text2);margin:0 auto 18px;position:relative;z-index:1;transition:all .2s}
+.proc-step:hover .ps-num{border-color:var(--red);color:var(--red2);background:var(--red-soft)}
+.proc-step h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+.proc-step p{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* TECH */
+#tech{background:var(--bg)}
+.tech-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:48px}
+.ti{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 14px;text-align:center;transition:all .2s}
+.ti:hover{border-color:var(--red-border);background:var(--surface2)}
+.ti-em{font-size:26px;margin-bottom:10px}
+.ti-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.ti-cat{font-size:11px;color:var(--text2)}
+
+/* CONTACT */
+#contact{background:var(--bg)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.ci-list{display:flex;flex-direction:column;gap:18px;margin-top:32px}
+.ci{display:flex;align-items:center;gap:14px}
+.ci-dot{width:8px;height:8px;background:var(--red);border-radius:50%;flex-shrink:0}
+.ci-label{font-size:12px;color:var(--text2);margin-bottom:1px}
+.ci-val{font-size:14px;color:#fff;font-weight:500}
+.form-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden}
+.form-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red3),var(--red2))}
+.fg{margin-bottom:14px}
+.fg label{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+.fg input,.fg textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-size:14px;font-family:var(--ff);outline:none;transition:border-color .2s;resize:none}
+.fg input:focus,.fg textarea:focus{border-color:var(--red-border)}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--text3)}
+.fg textarea{min-height:100px}
+.fgrow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-btn{width:100%;background:var(--red);color:#fff;border:none;padding:14px;border-radius:10px;font-family:var(--ff);font-size:15px;font-weight:700;cursor:pointer;transition:all .22s;margin-top:4px}
+.form-btn:hover{background:var(--red2);transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:#080808;border-top:1px solid var(--border);padding:52px 0 36px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:44px}
+.fb-brand p{font-size:14px;color:var(--text2);line-height:1.65;margin-top:14px;max-width:260px}
+.f-head{font-size:12px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:11px}
+.f-links a{color:var(--text2);text-decoration:none;font-size:14px;transition:color .18s}
+.f-links a:hover{color:var(--text)}
+.footer-bottom{border-top:1px solid var(--border2);padding-top:28px;display:flex;justify-content:space-between;align-items:center}
+.fcopy{font-size:13px;color:var(--text3)}
+.socials{display:flex;gap:8px}
+.soc{width:32px;height:32px;border-radius:7px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text2);text-decoration:none;transition:all .18s;font-weight:700}
+.soc:hover{border-color:var(--red-border);color:var(--red2)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.18s}.d3{transition-delay:.26s}.d4{transition-delay:.34s}
+
+/* LANG TRANSITION */
+[data-i18n]{transition:opacity .15s}
+.lang-fade{opacity:0}
+
+@media(max-width:900px){
+.nav-links{display:none}
+.about-layout,.contact-layout{grid-template-columns:1fr;gap:40px}
+.sol-grid{grid-template-columns:1fr 1fr}
+.tech-row{grid-template-columns:repeat(4,1fr)}
+.proc-steps{grid-template-columns:1fr 1fr;gap:24px}
+.proc-steps::after{display:none}
+.footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:600px){
+.container{padding:0 20px}
+.nav-inner{padding:0 20px}
+.sol-grid{grid-template-columns:1fr}
+.tech-row{grid-template-columns:repeat(3,1fr)}
+.fgrow{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr}
+.nav-cta{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo-wrap">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect x="4" y="9" width="28" height="24" rx="10" fill="url(#pg)"/>
+        <path d="M13 9 L14 3 L16 7 L18 2 L20 7 L22 3 L23 9Z" fill="#C8004B"/>
+        <circle cx="12" cy="20" r="2.2" fill="white"/>
+        <circle cx="24" cy="16" r="2.2" fill="white"/>
+        <circle cx="18" cy="28" r="2.2" fill="white"/>
+        <line x1="12" y1="20" x2="24" y2="16" stroke="#1A1A1A" stroke-width="1.4"/>
+        <line x1="12" y1="20" x2="18" y2="28" stroke="#1A1A1A" stroke-width="1.4"/>
+        <line x1="24" y1="16" x2="18" y2="28" stroke="#1A1A1A" stroke-width="1.4"/>
+        <defs>
+          <linearGradient id="pg" x1="4" y1="9" x2="32" y2="33" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#E0005A"/>
+            <stop offset="100%" stop-color="#7A0030"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-anor">ANOR</span>
+        <span class="logo-tech">TECH</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">О нас</a></li>
+      <li><a href="#solutions" data-i18n="nav.solutions">Решения</a></li>
+      <li><a href="#tech" data-i18n="nav.tech">Технологии</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('uz')">UZ</button>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav.cta">Обсудить проект</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Fintech · Digital Finance</div>
+    <h1 class="hero-h1"><span data-i18n="hero.h1.before">Создаем технологии для</span> <em data-i18n="hero.h1.em">цифрового финансового</em> <span data-i18n="hero.h1.after">бизнеса</span></h1>
+    <p class="hero-sub" data-i18n="hero.sub">Разрабатываем решения, которые делают финансовые сервисы быстрее, удобнее и эффективнее — от идеи до масштабируемого продукта.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-red" data-i18n="nav.cta">Обсудить проект →</a>
+      <a href="#solutions" class="btn-ghost" data-i18n="hero.btn2">Наши решения</a>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="s-tag" data-i18n="about.tag">О компании</div>
+        <h2 class="s-h2" data-i18n="about.h2">Технологии, которые работают в реальном бизнесе</h2>
+        <p class="s-sub" data-i18n="about.text">ANOR TECH — технологическая компания, создающая решения для цифровых финансовых сервисов. Разрабатываем продукты и платформы, которые делают финансовые услуги быстрее, удобнее и понятнее. Наша миссия — упрощать сложные процессы и ускорять цифровую трансформацию компаний.</p>
+      </div>
+      <div class="about-right reveal d2">
+        <div class="principle">
+          <div class="p-icon">🛡️</div>
+          <div class="p-title" data-i18n="about.p1.title">Надежность</div>
+          <div class="p-desc" data-i18n="about.p1.desc">Enterprise-grade системы с гарантированным uptime и многоуровневой защитой данных</div>
+        </div>
+        <div class="principle">
+          <div class="p-icon">⚡</div>
+          <div class="p-title" data-i18n="about.p2.title">Скорость</div>
+          <div class="p-desc" data-i18n="about.p2.desc">От концепции до production за недели. Agile-подход на каждом этапе разработки</div>
+        </div>
+        <div class="principle">
+          <div class="p-icon">📈</div>
+          <div class="p-title" data-i18n="about.p3.title">Масштабируемость</div>
+          <div class="p-desc" data-i18n="about.p3.desc">Архитектура, выдерживающая нагрузку от сотен до миллионов транзакций</div>
+        </div>
+        <div class="principle">
+          <div class="p-icon">🔬</div>
+          <div class="p-title" data-i18n="about.p4.title">Инновации</div>
+          <div class="p-desc" data-i18n="about.p4.desc">Передовой стек технологий и постоянное отслеживание трендов индустрии</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="container">
+    <div class="reveal" style="max-width:520px">
+      <div class="s-tag" data-i18n="sol.tag">Решения</div>
+      <h2 class="s-h2" data-i18n="sol.h2">Полный спектр финтех-разработки</h2>
+      <p class="s-sub" data-i18n="sol.sub">От MVP до enterprise-систем — закрываем все этапы создания цифровых финансовых продуктов.</p>
+    </div>
+    <div class="sol-grid">
+      <div class="sol-card reveal">
+        <div class="sol-ico">🏦</div>
+        <h3 data-i18n="sol.c1.title">Финтех-платформы</h3>
+        <p data-i18n="sol.c1.desc">Комплексные платформы для цифрового банкинга, необанков и инвестиционных сервисов с полным функциональным стеком</p>
+      </div>
+      <div class="sol-card reveal d1">
+        <div class="sol-ico">💳</div>
+        <h3 data-i18n="sol.c2.title">Платежные сервисы</h3>
+        <p data-i18n="sol.c2.desc">Процессинг, эквайринг, мобильные кошельки, P2P-переводы и системы лояльности с поддержкой всех методов оплаты</p>
+      </div>
+      <div class="sol-card reveal d2">
+        <div class="sol-ico">🏛️</div>
+        <h3 data-i18n="sol.c3.title">Банковские продукты</h3>
+        <p data-i18n="sol.c3.desc">Core banking системы, решения для розничного и корпоративного банкинга, управление счетами и кредитными портфелями</p>
+      </div>
+      <div class="sol-card reveal">
+        <div class="sol-ico">🔗</div>
+        <h3 data-i18n="sol.c4.title">API и интеграции</h3>
+        <p data-i18n="sol.c4.desc">API-платформы, Open Banking, PSD2 compliance, интеграция с legacy-системами и финансовыми экосистемами</p>
+      </div>
+      <div class="sol-card reveal d1">
+        <div class="sol-ico">⚙️</div>
+        <h3 data-i18n="sol.c5.title">Автоматизация</h3>
+        <p data-i18n="sol.c5.desc">KYC/AML, кредитный скоринг, документооборот, отчетность и цифровизация внутренних бизнес-процессов</p>
+      </div>
+      <div class="sol-card reveal d2">
+        <div class="sol-ico">🎯</div>
+        <h3 data-i18n="sol.c6.title">Заказная разработка</h3>
+        <p data-i18n="sol.c6.desc">Разработка под специфические бизнес-задачи с учетом регуляторных требований вашего рынка — от MVP до enterprise</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="reveal" style="max-width:500px;margin:0 auto;text-align:center">
+      <div class="s-tag" data-i18n="proc.tag">Подход</div>
+      <h2 class="s-h2" data-i18n="proc.h2">От задачи до результата</h2>
+      <p class="s-sub" data-i18n="proc.sub">Прозрачный процесс на каждом этапе — вы всегда знаете, что происходит.</p>
+    </div>
+    <div class="proc-steps">
+      <div class="proc-step reveal">
+        <div class="ps-num">01</div>
+        <h4 data-i18n="proc.s1.title">Анализ</h4>
+        <p data-i18n="proc.s1.desc">Погружение в контекст, аудит систем, формирование требований</p>
+      </div>
+      <div class="proc-step reveal d1">
+        <div class="ps-num">02</div>
+        <h4 data-i18n="proc.s2.title">Проектирование</h4>
+        <p data-i18n="proc.s2.desc">Архитектура, API-дизайн, прототипирование интерфейсов</p>
+      </div>
+      <div class="proc-step reveal d2">
+        <div class="ps-num">03</div>
+        <h4 data-i18n="proc.s3.title">Разработка</h4>
+        <p data-i18n="proc.s3.desc">Итеративные спринты с демо каждые 2 недели</p>
+      </div>
+      <div class="proc-step reveal d3">
+        <div class="ps-num">04</div>
+        <h4 data-i18n="proc.s4.title">Интеграция</h4>
+        <p data-i18n="proc.s4.desc">Подключение систем, нагрузочное тестирование, вывод в prod</p>
+      </div>
+      <div class="proc-step reveal d4">
+        <div class="ps-num">05</div>
+        <h4 data-i18n="proc.s5.title">Поддержка</h4>
+        <p data-i18n="proc.s5.desc">Мониторинг 24/7, SLA, развитие функциональности</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- TECH -->
+<section id="tech">
+  <div class="container">
+    <div class="reveal" style="max-width:480px;margin:0 auto;text-align:center">
+      <div class="s-tag" data-i18n="tech.tag">Технологии</div>
+      <h2 class="s-h2" data-i18n="tech.h2">Проверенный стек</h2>
+      <p class="s-sub" data-i18n="tech.sub">Технологии, которым доверяют крупнейшие финтех-компании мира</p>
+    </div>
+    <div class="tech-row">
+      <div class="ti reveal"><div class="ti-em">☕</div><div class="ti-name">Java</div><div class="ti-cat" data-i18n="tech.cat.backend">Backend</div></div>
+      <div class="ti reveal d1"><div class="ti-em">🍃</div><div class="ti-name">Spring</div><div class="ti-cat" data-i18n="tech.cat.framework">Framework</div></div>
+      <div class="ti reveal d2"><div class="ti-em">🐘</div><div class="ti-name">PostgreSQL</div><div class="ti-cat" data-i18n="tech.cat.database">Database</div></div>
+      <div class="ti reveal d3"><div class="ti-em">⎈</div><div class="ti-name">Kubernetes</div><div class="ti-cat" data-i18n="tech.cat.orchestration">Orchestration</div></div>
+      <div class="ti reveal d4"><div class="ti-em">🐳</div><div class="ti-name">Docker</div><div class="ti-cat" data-i18n="tech.cat.containers">Containers</div></div>
+      <div class="ti reveal"><div class="ti-em">📨</div><div class="ti-name">Kafka</div><div class="ti-cat" data-i18n="tech.cat.streaming">Streaming</div></div>
+      <div class="ti reveal d1"><div class="ti-em">⚛️</div><div class="ti-name">React</div><div class="ti-cat" data-i18n="tech.cat.frontend">Frontend</div></div>
+      <div class="ti reveal d2"><div class="ti-em">🍎</div><div class="ti-name">Swift</div><div class="ti-cat">iOS</div></div>
+      <div class="ti reveal d3"><div class="ti-em">🤖</div><div class="ti-name">Kotlin</div><div class="ti-cat">Android</div></div>
+      <div class="ti reveal d3"><div class="ti-em">☁️</div><div class="ti-name">AWS</div><div class="ti-cat" data-i18n="tech.cat.cloud">Cloud</div></div>
+      <div class="ti reveal d4"><div class="ti-em">🔷</div><div class="ti-name">Azure</div><div class="ti-cat" data-i18n="tech.cat.cloud">Cloud</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="reveal">
+        <div class="s-tag" data-i18n="contact.tag">Контакты</div>
+        <h2 class="s-h2" data-i18n="contact.h2">Обсудим ваш проект</h2>
+        <p class="s-sub" data-i18n="contact.sub">Расскажите о задаче — ответим в течение 24 часов с предварительной оценкой и планом действий.</p>
+        <div class="ci-list">
+          <div class="ci"><div class="ci-dot"></div><div><div class="ci-label" data-i18n="contact.email">Email</div><div class="ci-val">anortech@yandex.com</div></div></div>
+          <div class="ci"><div class="ci-dot"></div><div><div class="ci-label" data-i18n="contact.phone">Телефон</div><div class="ci-val">+998 (99) 052-03-12</div></div></div>
+          <div class="ci"><div class="ci-dot"></div><div><div class="ci-label" data-i18n="contact.office">Офис</div><div class="ci-val" data-i18n="contact.address">г. Ташкент, Яшнабадский район, ул. Шахрисабз, дом 85</div></div></div>
+          <div class="ci"><div class="ci-dot"></div><div><div class="ci-label" data-i18n="contact.response">Время ответа</div><div class="ci-val" data-i18n="contact.responseVal">В течение 24 часов</div></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="form-box">
+          <div class="fgrow">
+            <div class="fg"><label data-i18n="form.name">Имя</label><input id="f-name" type="text" name="name" data-i18n-ph="form.namePh" placeholder="Ваше имя"></div>
+            <div class="fg"><label data-i18n="form.company">Компания</label><input id="f-company" type="text" name="company" data-i18n-ph="form.companyPh" placeholder="Название компании"></div>
+          </div>
+          <div class="fgrow">
+            <div class="fg"><label>Email</label><input id="f-email" type="email" name="email" placeholder="email@company.com"></div>
+            <div class="fg"><label data-i18n="form.phone">Телефон</label><input id="f-phone" type="tel" name="phone" placeholder="+998 (__) ___-__-__"></div>
+          </div>
+          <div class="fg"><label data-i18n="form.message">Сообщение</label><textarea id="f-message" name="message" data-i18n-ph="form.messagePh" placeholder="Опишите задачу или проект..."></textarea></div>
+          <div id="form-status" style="display:none;padding:12px 16px;border-radius:8px;font-size:14px;font-weight:600;margin-bottom:12px"></div>
+          <button class="form-btn" id="form-submit-btn" data-i18n="form.submit" onclick="submitForm(event)">Отправить заявку →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="fb-brand">
+        <a href="#" class="logo-wrap">
+          <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+            <rect x="4" y="9" width="28" height="24" rx="10" fill="url(#pg2)"/>
+            <path d="M13 9 L14 3 L16 7 L18 2 L20 7 L22 3 L23 9Z" fill="#C8004B"/>
+            <circle cx="12" cy="20" r="2.2" fill="white"/>
+            <circle cx="24" cy="16" r="2.2" fill="white"/>
+            <circle cx="18" cy="28" r="2.2" fill="white"/>
+            <line x1="12" y1="20" x2="24" y2="16" stroke="#1A1A1A" stroke-width="1.4"/>
+            <line x1="12" y1="20" x2="18" y2="28" stroke="#1A1A1A" stroke-width="1.4"/>
+            <line x1="24" y1="16" x2="18" y2="28" stroke="#1A1A1A" stroke-width="1.4"/>
+            <defs><linearGradient id="pg2" x1="4" y1="9" x2="32" y2="33" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#E0005A"/><stop offset="100%" stop-color="#7A0030"/></linearGradient></defs>
+          </svg>
+          <div class="logo-text" style="margin-left:8px"><span class="logo-anor">ANOR</span><span class="logo-tech">TECH</span></div>
+        </a>
+        <p data-i18n="footer.desc">Создаем технологии, которые помогают финансовому бизнесу развиваться быстрее.</p>
+        <div class="socials" style="margin-top:18px">
+          <a href="#" class="soc">in</a>
+          <a href="#" class="soc">tw</a>
+          <a href="#" class="soc">gh</a>
+          <a href="#" class="soc">tg</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-head" data-i18n="footer.solutions">Решения</div>
+        <ul class="f-links">
+          <li><a href="#" data-i18n="sol.c1.title">Финтех-платформы</a></li>
+          <li><a href="#" data-i18n="sol.c2.title">Платёжные сервисы</a></li>
+          <li><a href="#" data-i18n="sol.c3.title">Банковские продукты</a></li>
+          <li><a href="#" data-i18n="sol.c4.title">API и интеграции</a></li>
+          <li><a href="#" data-i18n="sol.c5.title">Автоматизация</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-head" data-i18n="footer.company">Компания</div>
+        <ul class="f-links">
+          <li><a href="#" data-i18n="nav.about">О нас</a></li>
+          <li><a href="#" data-i18n="footer.career">Карьера</a></li>
+          <li><a href="#" data-i18n="footer.contacts">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-head" data-i18n="footer.legal">Правовая информация</div>
+        <ul class="f-links">
+          <li><a href="#" data-i18n="footer.privacy">Политика конфиденциальности</a></li>
+          <li><a href="#" data-i18n="footer.terms">Условия использования</a></li>
+          <li><a href="#" data-i18n="footer.offer">Оферта</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="fcopy" data-i18n="footer.copy">© 2026 ANOR TECH. Все права защищены.</div>
+      <div class="fcopy">Fintech Solutions</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── TRANSLATIONS ───────────────────────────────────────────────
+const T = {
+  ru: {
+    "nav.about":"О нас","nav.solutions":"Решения","nav.tech":"Технологии","nav.blog":"Блог","nav.cta":"Обсудить проект",
+    "hero.h1.before":"Создаем технологии для","hero.h1.em":"цифрового финансового","hero.h1.after":"бизнеса","hero.sub":"Разрабатываем решения, которые делают финансовые сервисы быстрее, удобнее и эффективнее — от идеи до масштабируемого продукта.","hero.btn2":"Наши решения",
+    "about.tag":"О компании","about.h2":"Технологии, которые работают в реальном бизнесе","about.text":"ANOR TECH — технологическая компания, создающая решения для цифровых финансовых сервисов. Разрабатываем продукты и платформы, которые делают финансовые услуги быстрее, удобнее и понятнее. Наша миссия — упрощать сложные процессы и ускорять цифровую трансформацию компаний.",
+    "about.p1.title":"Надежность","about.p1.desc":"Enterprise-grade системы с гарантированным uptime и многоуровневой защитой данных",
+    "about.p2.title":"Скорость","about.p2.desc":"От концепции до production за недели. Agile-подход на каждом этапе разработки",
+    "about.p3.title":"Масштабируемость","about.p3.desc":"Архитектура, выдерживающая нагрузку от сотен до миллионов транзакций",
+    "about.p4.title":"Инновации","about.p4.desc":"Передовой стек технологий и постоянное отслеживание трендов индустрии",
+    "sol.tag":"Решения","sol.h2":"Полный спектр финтех-разработки","sol.sub":"От MVP до enterprise-систем — закрываем все этапы создания цифровых финансовых продуктов.",
+    "sol.c1.title":"Финтех-платформы","sol.c1.desc":"Комплексные платформы для цифрового банкинга, необанков и инвестиционных сервисов с полным функциональным стеком",
+    "sol.c2.title":"Платежные сервисы","sol.c2.desc":"Процессинг, эквайринг, мобильные кошельки, P2P-переводы и системы лояльности с поддержкой всех методов оплаты",
+    "sol.c3.title":"Банковские продукты","sol.c3.desc":"Core banking системы, решения для розничного и корпоративного банкинга, управление счетами и кредитными портфелями",
+    "sol.c4.title":"API и интеграции","sol.c4.desc":"API-платформы, Open Banking, PSD2 compliance, интеграция с legacy-системами и финансовыми экосистемами",
+    "sol.c5.title":"Автоматизация","sol.c5.desc":"KYC/AML, кредитный скоринг, документооборот, отчетность и цифровизация внутренних бизнес-процессов",
+    "sol.c6.title":"Заказная разработка","sol.c6.desc":"Разработка под специфические бизнес-задачи с учетом регуляторных требований вашего рынка — от MVP до enterprise",
+    "proc.tag":"Подход","proc.h2":"От задачи до результата","proc.sub":"Прозрачный процесс на каждом этапе — вы всегда знаете, что происходит.",
+    "proc.s1.title":"Анализ","proc.s1.desc":"Погружение в контекст, аудит систем, формирование требований",
+    "proc.s2.title":"Проектирование","proc.s2.desc":"Архитектура, API-дизайн, прототипирование интерфейсов",
+    "proc.s3.title":"Разработка","proc.s3.desc":"Итеративные спринты с демо каждые 2 недели",
+    "proc.s4.title":"Интеграция","proc.s4.desc":"Подключение систем, нагрузочное тестирование, вывод в prod",
+    "proc.s5.title":"Поддержка","proc.s5.desc":"Мониторинг 24/7, SLA, развитие функциональности",
+    "tech.tag":"Технологии","tech.h2":"Проверенный стек","tech.sub":"Технологии, которым доверяют крупнейшие финтех-компании мира",
+    "tech.cat.backend":"Backend","tech.cat.framework":"Framework","tech.cat.database":"База данных","tech.cat.orchestration":"Оркестрация","tech.cat.containers":"Контейнеры","tech.cat.streaming":"Стриминг","tech.cat.frontend":"Frontend","tech.cat.cloud":"Облако",
+    "news.tag":"Экспертиза","news.h2":"Блог и аналитика","news.all":"Все публикации →","news.read":"Читать →",
+    "news.a1.tag":"Тренды 2025","news.a1.title":"Как embedded finance меняет традиционный банкинг: что нужно знать финансовым компаниям прямо сейчас","news.a1.desc":"Встроенные финансовые сервисы становятся нормой для нефинансового бизнеса. Разбираем архитектурные паттерны, регуляторные требования и бизнес-модели.","news.a1.date":"15 мая 2025",
+    "news.a2.tag":"Технологии","news.a2.title":"Event-driven архитектура для платёжных систем","news.a2.desc":"Практический гайд по Apache Kafka для финансового сектора",
+    "news.a3.tag":"Аналитика","news.a3.title":"ML-скоринг в кредитовании: новые подходы к оценке рисков","news.a3.desc":"Обзор современных методов построения кредитных моделей",
+    "contact.tag":"Контакты","contact.h2":"Обсудим ваш проект","contact.sub":"Расскажите о задаче — ответим в течение 24 часов с предварительной оценкой и планом действий.",
+    "contact.email":"Email","contact.phone":"Телефон","contact.office":"Офис","contact.address":"г. Ташкент, Яшнабадский район, ул. Шахрисабз, дом 85","contact.response":"Время ответа","contact.responseVal":"В течение 24 часов",
+    "form.name":"Имя","form.namePh":"Ваше имя","form.company":"Компания","form.companyPh":"Название компании","form.phone":"Телефон","form.message":"Сообщение","form.messagePh":"Опишите задачу или проект...","form.submit":"Отправить заявку →","form.sending":"Отправка...","form.success":"Заявка отправлена — мы свяжемся с вами в течение 24 часов ✓","form.error":"Ошибка отправки. Попробуйте ещё раз.","form.errorRequired":"Пожалуйста, заполните имя и email.",
+    "footer.desc":"Создаем технологии, которые помогают финансовому бизнесу развиваться быстрее.","footer.solutions":"Решения","footer.company":"Компания","footer.career":"Карьера","footer.contacts":"Контакты","footer.legal":"Правовая информация","footer.privacy":"Политика конфиденциальности","footer.terms":"Условия использования","footer.offer":"Оферта","footer.copy":"© 2026 ANOR TECH. Все права защищены."
+  },
+  en: {
+    "nav.about":"About","nav.solutions":"Solutions","nav.tech":"Technology","nav.blog":"Blog","nav.cta":"Discuss a project",
+    "hero.h1.before":"We build technology for","hero.h1.em":"digital financial","hero.h1.after":"business","hero.sub":"We develop solutions that make financial services faster, more convenient and more effective — from idea to scalable product.","hero.btn2":"Our solutions",
+    "about.tag":"About us","about.h2":"Technology that works in real business","about.text":"ANOR TECH is a technology company building solutions for digital financial services. We develop products and platforms that make financial services faster, clearer and easier to use. Our mission is to simplify complex processes and accelerate the digital transformation of companies.",
+    "about.p1.title":"Reliability","about.p1.desc":"Enterprise-grade systems with guaranteed uptime and multi-layer data protection",
+    "about.p2.title":"Speed","about.p2.desc":"From concept to production in weeks. Agile approach at every stage of development",
+    "about.p3.title":"Scalability","about.p3.desc":"Architecture that handles load from hundreds to millions of transactions",
+    "about.p4.title":"Innovation","about.p4.desc":"Cutting-edge technology stack and continuous tracking of industry trends",
+    "sol.tag":"Solutions","sol.h2":"Full-spectrum fintech development","sol.sub":"From MVP to enterprise systems — we cover every stage of building digital financial products.",
+    "sol.c1.title":"Fintech platforms","sol.c1.desc":"Comprehensive platforms for digital banking, neobanks and investment services with a complete functional stack",
+    "sol.c2.title":"Payment services","sol.c2.desc":"Processing, acquiring, mobile wallets, P2P transfers and loyalty systems supporting all payment methods",
+    "sol.c3.title":"Banking products","sol.c3.desc":"Core banking systems, retail and corporate banking solutions, account and loan portfolio management",
+    "sol.c4.title":"API & integrations","sol.c4.desc":"API platforms, Open Banking, PSD2 compliance, integration with legacy systems and financial ecosystems",
+    "sol.c5.title":"Automation","sol.c5.desc":"KYC/AML, credit scoring, document management, reporting and digitisation of internal business processes",
+    "sol.c6.title":"Custom development","sol.c6.desc":"Development tailored to specific business needs, accounting for the regulatory requirements of your market — from MVP to enterprise",
+    "proc.tag":"Approach","proc.h2":"From task to result","proc.sub":"A transparent process at every stage — you always know what is happening.",
+    "proc.s1.title":"Discovery","proc.s1.desc":"Context immersion, system audit, requirements definition",
+    "proc.s2.title":"Design","proc.s2.desc":"Architecture, API design, interface prototyping",
+    "proc.s3.title":"Development","proc.s3.desc":"Iterative sprints with demos every 2 weeks",
+    "proc.s4.title":"Integration","proc.s4.desc":"System connection, load testing, production release",
+    "proc.s5.title":"Support","proc.s5.desc":"24/7 monitoring, SLA, feature development",
+    "tech.tag":"Technology","tech.h2":"Battle-tested stack","tech.sub":"Technologies trusted by the world's leading fintech companies",
+    "tech.cat.backend":"Backend","tech.cat.framework":"Framework","tech.cat.database":"Database","tech.cat.orchestration":"Orchestration","tech.cat.containers":"Containers","tech.cat.streaming":"Streaming","tech.cat.frontend":"Frontend","tech.cat.cloud":"Cloud",
+    "news.tag":"Expertise","news.h2":"Blog & insights","news.all":"All articles →","news.read":"Read →",
+    "news.a1.tag":"Trends 2025","news.a1.title":"How embedded finance is reshaping traditional banking: what financial companies need to know right now","news.a1.desc":"Embedded financial services are becoming the norm for non-financial businesses. We examine architectural patterns, regulatory requirements and business models that work in 2025.","news.a1.date":"15 May 2025",
+    "news.a2.tag":"Technology","news.a2.title":"Event-driven architecture for payment systems","news.a2.desc":"A practical guide to Apache Kafka for the financial sector",
+    "news.a3.tag":"Analytics","news.a3.title":"ML scoring in lending: new approaches to risk assessment","news.a3.desc":"An overview of modern methods for building credit models",
+    "contact.tag":"Contact","contact.h2":"Let's discuss your project","contact.sub":"Tell us about your task — we will reply within 24 hours with a preliminary assessment and action plan.",
+    "contact.email":"Email","contact.phone":"Phone","contact.office":"Office","contact.address":"Tashkent, Yashnabad district, Shahrisabz str., 85","contact.response":"Response time","contact.responseVal":"Within 24 hours",
+    "form.name":"Name","form.namePh":"Your name","form.company":"Company","form.companyPh":"Company name","form.phone":"Phone","form.message":"Message","form.messagePh":"Describe your task or project...","form.submit":"Send request →","form.sending":"Sending...","form.success":"Request sent — we will get back to you within 24 hours ✓","form.error":"Sending failed. Please try again.","form.errorRequired":"Please fill in your name and email.",
+    "footer.desc":"We build technology that helps financial businesses grow faster.","footer.solutions":"Solutions","footer.company":"Company","footer.career":"Careers","footer.contacts":"Contact","footer.legal":"Legal","footer.privacy":"Privacy policy","footer.terms":"Terms of use","footer.offer":"Public offer","footer.copy":"© 2026 ANOR TECH. All rights reserved."
+  },
+  uz: {
+    "nav.about":"Biz haqimizda","nav.solutions":"Yechimlar","nav.tech":"Texnologiyalar","nav.blog":"Blog","nav.cta":"Loyihani muhokama qilish",
+    "hero.h1.before":"Raqamli moliyaviy","hero.h1.em":"biznes uchun","hero.h1.after":"texnologiyalar yaratamiz","hero.sub":"Moliyaviy xizmatlarni tezroq, qulayroq va samaraliroq qiladigan yechimlar ishlab chiqamiz — g'oyadan tortib kengaytiriladigan mahsulotgacha.","hero.btn2":"Yechimlarimiz",
+    "about.tag":"Kompaniya haqida","about.h2":"Haqiqiy biznesda ishlaydigan texnologiyalar","about.text":"ANOR TECH — raqamli moliyaviy xizmatlar uchun yechimlar yaratuvchi texnologiya kompaniyasi. Moliyaviy xizmatlarni tezroq, tushunarli va qulay qiladigan mahsulotlar va platformalar ishlab chiqamiz. Bizning vazifamiz — murakkab jarayonlarni soddalashtirish va kompaniyalarning raqamli transformatsiyasini tezlashtirish.",
+    "about.p1.title":"Ishonchlilik","about.p1.desc":"Kafolatlangan uptime va ko'p qatlamli ma'lumotlar himoyasi bilan enterprise darajadagi tizimlar",
+    "about.p2.title":"Tezlik","about.p2.desc":"Kontseptsiyadan productiongacha bir necha hafta ichida. Har bir bosqichda Agile yondashuv",
+    "about.p3.title":"Kengayuvchanlik","about.p3.desc":"Yuzlab va millionlab tranzaksiyalar yuklamini ko'taradigan arxitektura",
+    "about.p4.title":"Innovatsiya","about.p4.desc":"Ilg'or texnologiya to'plami va soha tendentsiyalarini doimiy kuzatib borish",
+    "sol.tag":"Yechimlar","sol.h2":"Fintech ishlanmalarning to'liq spektri","sol.sub":"MVPdan enterprise tizimlargacha — raqamli moliyaviy mahsulotlar yaratishning barcha bosqichlarini yopamiz.",
+    "sol.c1.title":"Fintech platformalar","sol.c1.desc":"Raqamli banking, neobank va investitsiya xizmatlari uchun to'liq funksional to'plamga ega kompleks platformalar",
+    "sol.c2.title":"To'lov xizmatlari","sol.c2.desc":"Barcha to'lov usullarini qo'llab-quvvatlovchi processing, ekvayring, mobil hamyonlar, P2P o'tkazmalar va sodiqlik tizimlari",
+    "sol.c3.title":"Bank mahsulotlari","sol.c3.desc":"Core banking tizimlari, chakana va korporativ banking yechimlari, hisoblar va kredit portfellarini boshqarish",
+    "sol.c4.title":"API va integratsiyalar","sol.c4.desc":"API platformalar, Open Banking, PSD2 compliance, legacy tizimlar va moliyaviy ekotizimlar bilan integratsiya",
+    "sol.c5.title":"Avtomatlashtirish","sol.c5.desc":"KYC/AML, kredit skoring, hujjat aylanmasi, hisobot va ichki biznes jarayonlarini raqamlashtirish",
+    "sol.c6.title":"Buyurtma ishlanma","sol.c6.desc":"Bozorингиз tartibga solish talablarini hisobga olgan holda maxsus biznes vazifalariga mo'ljallangan ishlanma — MVPdan enterprise gacha",
+    "proc.tag":"Yondashuv","proc.h2":"Vazifadan natijagacha","proc.sub":"Har bir bosqichda shaffof jarayon — siz doimo nima bo'layotganini bilasiz.",
+    "proc.s1.title":"Tahlil","proc.s1.desc":"Kontekstga sho'ng'ish, tizimlarni audit qilish, talablarni shakllantirish",
+    "proc.s2.title":"Loyihalash","proc.s2.desc":"Arxitektura, API dizayni, interfeys prototiplash",
+    "proc.s3.title":"Ishlab chiqish","proc.s3.desc":"Har 2 haftada demo bilan iterativ sprintlar",
+    "proc.s4.title":"Integratsiya","proc.s4.desc":"Tizimlarni ulash, yuklamani sinovdan o'tkazish, productga chiqarish",
+    "proc.s5.title":"Qo'llab-quvvatlash","proc.s5.desc":"24/7 monitoring, SLA, funksionallikni rivojlantirish",
+    "tech.tag":"Texnologiyalar","tech.h2":"Sinab ko'rilgan stek","tech.sub":"Dunyoning yetakchi fintech kompaniyalari ishongan texnologiyalar",
+    "tech.cat.backend":"Backend","tech.cat.framework":"Framework","tech.cat.database":"Ma'lumotlar bazasi","tech.cat.orchestration":"Orkestratsiya","tech.cat.containers":"Konteynerlar","tech.cat.streaming":"Striminq","tech.cat.frontend":"Frontend","tech.cat.cloud":"Bulut",
+    "news.tag":"Ekspertiza","news.h2":"Blog va tahlil","news.all":"Barcha maqolalar →","news.read":"O'qish →",
+    "news.a1.tag":"2025 tendentsiyalari","news.a1.title":"Embedded finance an'anaviy bankingni qanday o'zgartirmoqda: moliyaviy kompaniyalar hozir nima bilishi kerak","news.a1.desc":"Embedded moliyaviy xizmatlar moliyaviy bo'lmagan biznes uchun me'yorga aylanib bormoqda. Arxitektura naqshlari, tartibga solish talablari va 2025 yilda ishlaydigan biznes modellarni ko'rib chiqamiz.","news.a1.date":"15 may 2025",
+    "news.a2.tag":"Texnologiyalar","news.a2.title":"To'lov tizimlari uchun event-driven arxitektura","news.a2.desc":"Moliyaviy sektor uchun Apache Kafka bo'yicha amaliy qo'llanma",
+    "news.a3.tag":"Tahlil","news.a3.title":"Kreditlashda ML skoring: riskni baholashning yangi yondashuvlari","news.a3.desc":"Kredit modellarini qurish zamonaviy usullariga umumiy ko'rinish",
+    "contact.tag":"Aloqa","contact.h2":"Loyihangizni muhokama qilaylik","contact.sub":"Vazifa haqida gapirib bering — 24 soat ichida dastlabki baho va harakat rejasi bilan javob beramiz.",
+    "contact.email":"Email","contact.phone":"Telefon","contact.office":"Ofis","contact.address":"Toshkent sh., Yashnobod tumani, Shahrisabz ko'ch., 85-uy","contact.response":"Javob vaqti","contact.responseVal":"24 soat ichida",
+    "form.name":"Ism","form.namePh":"Ismingiz","form.company":"Kompaniya","form.companyPh":"Kompaniya nomi","form.phone":"Telefon","form.message":"Xabar","form.messagePh":"Vazifa yoki loyihangizni tasvirlab bering...","form.submit":"So'rov yuborish →","form.sending":"Yuborilmoqda...","form.success":"So'rov yuborildi — 24 soat ichida siz bilan bog'lanamiz ✓","form.error":"Yuborishda xatolik. Iltimos, qaytadan urinib ko'ring.","form.errorRequired":"Iltimos, ism va emailni to'ldiring.",
+    "footer.desc":"Moliyaviy biznesning tezroq o'sishiga yordam beradigan texnologiyalar yaratamiz.","footer.solutions":"Yechimlar","footer.company":"Kompaniya","footer.career":"Karyera","footer.contacts":"Aloqa","footer.legal":"Huquqiy ma'lumot","footer.privacy":"Maxfiylik siyosati","footer.terms":"Foydalanish shartlari","footer.offer":"Oferta","footer.copy":"© 2026 ANOR TECH. Barcha huquqlar himoyalangan."
+  }
+};
+
+// ─── LANG ENGINE ────────────────────────────────────────────────
+let currentLang = 'ru';
+
+function setLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  // update buttons
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+  });
+
+  const dict = T[lang];
+
+  // fade all translatable elements
+  const els = document.querySelectorAll('[data-i18n], [data-i18n-ph]');
+  els.forEach(el => el.classList.add('lang-fade'));
+
+  setTimeout(() => {
+    // text content
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        el.textContent = dict[key];
+      }
+    });
+    // placeholders
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (dict[key] !== undefined) el.placeholder = dict[key];
+    });
+
+    els.forEach(el => el.classList.remove('lang-fade'));
+  }, 150);
+}
+
+// ─── NAV SCROLL ──────────────────────────────────────────────────
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+
+// ─── SCROLL REVEAL ───────────────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ─── HERO CANVAS ─────────────────────────────────────────────────
+(function () {
+  const cv = document.getElementById('heroCanvas');
+  const ctx = cv.getContext('2d');
+  let W, H, nodes = [];
+  const N = 55;
+  function resize() { W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+  for (let i = 0; i < N; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: Math.random() * 1.8 + .8 });
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(n => { n.x += n.vx; n.y += n.vy; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
+    for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
+      const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y, d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 150) { ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.strokeStyle = `rgba(200,0,75,${(1 - d / 150) * .18})`; ctx.lineWidth = .6; ctx.stroke(); }
+    }
+    nodes.forEach(n => { ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(224,0,90,0.45)'; ctx.fill(); });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ─── FORM ────────────────────────────────────────────────────────
+async function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('form-submit-btn');
+  const status = document.getElementById('form-status');
+  const dict = T[currentLang];
+
+  // basic validation
+  const email = document.getElementById('f-email').value.trim();
+  const name = document.getElementById('f-name').value.trim();
+  if (!name || !email) {
+    status.style.display = 'block';
+    status.style.background = 'rgba(200,0,75,0.12)';
+    status.style.border = '1px solid rgba(200,0,75,0.3)';
+    status.style.color = '#ff6b9d';
+    status.textContent = dict['form.errorRequired'] || 'Пожалуйста, заполните имя и email.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = dict['form.sending'] || 'Отправка...';
+  btn.style.opacity = '0.7';
+  status.style.display = 'none';
+
+  try {
+    const res = await fetch('https://formspree.io/f/mgogazbr', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById('f-name').value,
+        company: document.getElementById('f-company').value,
+        email: document.getElementById('f-email').value,
+        phone: document.getElementById('f-phone').value,
+        message: document.getElementById('f-message').value,
+        _subject: `Новая заявка с сайта ANOR TECH — ${document.getElementById('f-name').value}`
+      })
+    });
+
+    if (res.ok) {
+      status.style.display = 'block';
+      status.style.background = 'rgba(0,180,80,0.1)';
+      status.style.border = '1px solid rgba(0,180,80,0.3)';
+      status.style.color = '#4caf7d';
+      status.textContent = dict['form.success'] || 'Заявка отправлена ✓';
+      // clear fields
+      ['f-name','f-company','f-email','f-phone','f-message'].forEach(id => document.getElementById(id).value = '');
+      btn.textContent = dict['form.submit'];
+      btn.style.opacity = '1';
+      btn.disabled = false;
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (err) {
+    status.style.display = 'block';
+    status.style.background = 'rgba(200,0,75,0.12)';
+    status.style.border = '1px solid rgba(200,0,75,0.3)';
+    status.style.color = '#ff6b9d';
+    status.textContent = dict['form.error'] || 'Ошибка отправки. Попробуйте ещё раз.';
+    btn.textContent = dict['form.submit'];
+    btn.style.opacity = '1';
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
