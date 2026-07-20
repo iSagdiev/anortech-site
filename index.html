@@ -126,7 +126,7 @@ section{min-height:100vh;display:flex;align-items:center;padding:100px 0;border-
 
 /* FOOTER */
 footer{background:#080808;border-top:1px solid var(--border);padding:52px 0 36px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:44px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:44px}
 .fb-brand p{font-size:14px;color:var(--text2);line-height:1.65;margin-top:14px;max-width:260px}
 .f-head{font-size:12px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
 .f-links{list-style:none;display:flex;flex-direction:column;gap:11px}
@@ -272,32 +272,32 @@ footer{background:#080808;border-top:1px solid var(--border);padding:52px 0 36px
       <p class="s-sub" data-i18n="sol.sub">От MVP до enterprise-систем — закрываем все этапы создания цифровых финансовых продуктов.</p>
     </div>
     <div class="sol-grid">
-      <div class="sol-card reveal">
+      <div class="sol-card reveal" id="sol-c1">
         <div class="sol-ico">🏦</div>
         <h3 data-i18n="sol.c1.title">Финтех-платформы</h3>
         <p data-i18n="sol.c1.desc">Комплексные платформы для цифрового банкинга, необанков и инвестиционных сервисов с полным функциональным стеком</p>
       </div>
-      <div class="sol-card reveal d1">
+      <div class="sol-card reveal d1" id="sol-c2">
         <div class="sol-ico">💳</div>
         <h3 data-i18n="sol.c2.title">Платежные сервисы</h3>
         <p data-i18n="sol.c2.desc">Процессинг, эквайринг, мобильные кошельки, P2P-переводы и системы лояльности с поддержкой всех методов оплаты</p>
       </div>
-      <div class="sol-card reveal d2">
+      <div class="sol-card reveal d2" id="sol-c3">
         <div class="sol-ico">🏛️</div>
         <h3 data-i18n="sol.c3.title">Банковские продукты</h3>
         <p data-i18n="sol.c3.desc">Core banking системы, решения для розничного и корпоративного банкинга, управление счетами и кредитными портфелями</p>
       </div>
-      <div class="sol-card reveal">
+      <div class="sol-card reveal" id="sol-c4">
         <div class="sol-ico">🔗</div>
         <h3 data-i18n="sol.c4.title">API и интеграции</h3>
         <p data-i18n="sol.c4.desc">API-платформы, Open Banking, PSD2 compliance, интеграция с legacy-системами и финансовыми экосистемами</p>
       </div>
-      <div class="sol-card reveal d1">
+      <div class="sol-card reveal d1" id="sol-c5">
         <div class="sol-ico">⚙️</div>
         <h3 data-i18n="sol.c5.title">Автоматизация</h3>
         <p data-i18n="sol.c5.desc">KYC/AML, кредитный скоринг, документооборот, отчетность и цифровизация внутренних бизнес-процессов</p>
       </div>
-      <div class="sol-card reveal d2">
+      <div class="sol-card reveal d2" id="sol-c6">
         <div class="sol-ico">🎯</div>
         <h3 data-i18n="sol.c6.title">Заказная разработка</h3>
         <p data-i18n="sol.c6.desc">Разработка под специфические бизнес-задачи с учетом регуляторных требований вашего рынка — от MVP до enterprise</p>
@@ -429,36 +429,26 @@ footer{background:#080808;border-top:1px solid var(--border);padding:52px 0 36px
         </a>
         <p data-i18n="footer.desc">Создаем технологии, которые помогают финансовому бизнесу развиваться быстрее.</p>
         <div class="socials" style="margin-top:18px">
-          <a href="#" class="soc">in</a>
-          <a href="#" class="soc">tw</a>
-          <a href="#" class="soc">gh</a>
-          <a href="#" class="soc">tg</a>
+          <a href="https://www.linkedin.com/posts/anortech-uz_fintech-anortech-ituzbekistan-activity-7464943149036089345-eAeO/?originalSubdomain=ru&skipRedirect=true" class="soc" target="_blank" rel="noopener">in</a>
         </div>
       </div>
       <div>
         <div class="f-head" data-i18n="footer.solutions">Решения</div>
         <ul class="f-links">
-          <li><a href="#" data-i18n="sol.c1.title">Финтех-платформы</a></li>
-          <li><a href="#" data-i18n="sol.c2.title">Платёжные сервисы</a></li>
-          <li><a href="#" data-i18n="sol.c3.title">Банковские продукты</a></li>
-          <li><a href="#" data-i18n="sol.c4.title">API и интеграции</a></li>
-          <li><a href="#" data-i18n="sol.c5.title">Автоматизация</a></li>
+          <li><a href="#sol-c1" data-i18n="sol.c1.title">Финтех-платформы</a></li>
+          <li><a href="#sol-c2" data-i18n="sol.c2.title">Платёжные сервисы</a></li>
+          <li><a href="#sol-c3" data-i18n="sol.c3.title">Банковские продукты</a></li>
+          <li><a href="#sol-c4" data-i18n="sol.c4.title">API и интеграции</a></li>
+          <li><a href="#sol-c5" data-i18n="sol.c5.title">Автоматизация</a></li>
+          <li><a href="#sol-c6" data-i18n="sol.c6.title">Заказная разработка</a></li>
         </ul>
       </div>
       <div>
         <div class="f-head" data-i18n="footer.company">Компания</div>
         <ul class="f-links">
-          <li><a href="#" data-i18n="nav.about">О нас</a></li>
+          <li><a href="#about" data-i18n="nav.about">О нас</a></li>
           <li><a href="#" data-i18n="footer.career">Карьера</a></li>
-          <li><a href="#" data-i18n="footer.contacts">Контакты</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-head" data-i18n="footer.legal">Правовая информация</div>
-        <ul class="f-links">
-          <li><a href="#" data-i18n="footer.privacy">Политика конфиденциальности</a></li>
-          <li><a href="#" data-i18n="footer.terms">Условия использования</a></li>
-          <li><a href="#" data-i18n="footer.offer">Оферта</a></li>
+          <li><a href="#contact" data-i18n="footer.contacts">Контакты</a></li>
         </ul>
       </div>
     </div>
