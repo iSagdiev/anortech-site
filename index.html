@@ -122,6 +122,15 @@ section{min-height:100vh;display:flex;align-items:center;padding:100px 0;border-
 .fg input:focus,.fg textarea:focus{border-color:var(--red-border)}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--text3)}
 .fg textarea{min-height:100px}
+.fg input.invalid,.fg textarea.invalid{border-color:#ff4d6d}
+.fg-error{font-size:12px;color:#ff6b9d;margin-top:6px;display:none}
+.fg-error.show{display:block}
+.phone-input{display:flex;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:8px;transition:border-color .2s}
+.phone-input:focus-within{border-color:var(--red-border)}
+.phone-input.invalid{border-color:#ff4d6d}
+.phone-prefix{padding:11px 0 11px 14px;color:var(--text2);font-size:14px;user-select:none}
+.phone-input input{border:none;background:transparent;padding:11px 14px 11px 6px;width:auto;flex:1}
+.phone-input input:focus{border-color:transparent}
 .fgrow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .form-btn{width:100%;background:var(--red);color:#fff;border:none;padding:14px;border-radius:10px;font-family:var(--ff);font-size:15px;font-weight:700;cursor:pointer;transition:all .22s;margin-top:4px}
 .form-btn:hover{background:var(--red2);transform:translateY(-1px)}
@@ -394,12 +403,12 @@ footer{background:#080808;border-top:1px solid var(--border);padding:52px 0 36px
       <div class="reveal d2">
         <div class="form-box">
           <div class="fgrow">
-            <div class="fg"><label data-i18n="form.name">Имя</label><input id="f-name" type="text" name="name" data-i18n-ph="form.namePh" placeholder="Ваше имя"></div>
+            <div class="fg"><label data-i18n="form.name">Имя</label><input id="f-name" type="text" name="name" data-i18n-ph="form.namePh" placeholder="Ваше имя"><div class="fg-error" id="err-name"></div></div>
             <div class="fg"><label data-i18n="form.company">Компания</label><input id="f-company" type="text" name="company" data-i18n-ph="form.companyPh" placeholder="Название компании"></div>
           </div>
           <div class="fgrow">
-            <div class="fg"><label>Email</label><input id="f-email" type="email" name="email" placeholder="email@company.com"></div>
-            <div class="fg"><label data-i18n="form.phone">Телефон</label><input id="f-phone" type="tel" name="phone" placeholder="+998 (__) ___-__-__"></div>
+            <div class="fg"><label>Email</label><input id="f-email" type="email" name="email" placeholder="email@company.com"><div class="fg-error" id="err-email"></div></div>
+            <div class="fg"><label data-i18n="form.phone">Телефон</label><div class="phone-input" id="phone-wrap"><span class="phone-prefix">+998</span><input id="f-phone" type="tel" inputmode="numeric" name="phone" placeholder="90 123 45 67" maxlength="12"></div><div class="fg-error" id="err-phone"></div></div>
           </div>
           <div class="fg"><label data-i18n="form.message">Сообщение</label><textarea id="f-message" name="message" data-i18n-ph="form.messagePh" placeholder="Опишите задачу или проект..."></textarea></div>
           <div id="form-status" style="display:none;padding:12px 16px;border-radius:8px;font-size:14px;font-weight:600;margin-bottom:12px"></div>
@@ -493,7 +502,7 @@ const T = {
     "news.a3.tag":"Аналитика","news.a3.title":"ML-скоринг в кредитовании: новые подходы к оценке рисков","news.a3.desc":"Обзор современных методов построения кредитных моделей",
     "contact.tag":"Контакты","contact.h2":"Обсудим ваш проект","contact.sub":"Расскажите о задаче — ответим в течение 24 часов с предварительной оценкой и планом действий.",
     "contact.email":"Email","contact.phone":"Телефон","contact.office":"Офис","contact.address":"г. Ташкент, Яшнабадский район, ул. Шахрисабз, дом 85","contact.response":"Время ответа","contact.responseVal":"В течение 24 часов",
-    "form.name":"Имя","form.namePh":"Ваше имя","form.company":"Компания","form.companyPh":"Название компании","form.phone":"Телефон","form.message":"Сообщение","form.messagePh":"Опишите задачу или проект...","form.submit":"Отправить заявку →","form.sending":"Отправка...","form.success":"Заявка отправлена — мы свяжемся с вами в течение 24 часов ✓","form.error":"Ошибка отправки. Попробуйте ещё раз.","form.errorRequired":"Пожалуйста, заполните имя и email.",
+    "form.name":"Имя","form.namePh":"Ваше имя","form.company":"Компания","form.companyPh":"Название компании","form.phone":"Телефон","form.message":"Сообщение","form.messagePh":"Опишите задачу или проект...","form.submit":"Отправить заявку →","form.sending":"Отправка...","form.success":"Заявка отправлена — мы свяжемся с вами в течение 24 часов ✓","form.error":"Ошибка отправки. Попробуйте ещё раз.","form.errorRequired":"Пожалуйста, исправьте отмеченные поля.","form.errorName":"Введите корректное имя (минимум 2 буквы).","form.errorEmail":"Введите корректный email.","form.errorPhone":"Введите корректный номер телефона.",
     "footer.desc":"Создаем технологии, которые помогают финансовому бизнесу развиваться быстрее.","footer.solutions":"Решения","footer.company":"Компания","footer.career":"Карьера","footer.contacts":"Контакты","footer.legal":"Правовая информация","footer.privacy":"Политика конфиденциальности","footer.terms":"Условия использования","footer.offer":"Оферта","footer.copy":"© 2026 ANOR TECH. Все права защищены."
   },
   en: {
@@ -525,7 +534,7 @@ const T = {
     "news.a3.tag":"Analytics","news.a3.title":"ML scoring in lending: new approaches to risk assessment","news.a3.desc":"An overview of modern methods for building credit models",
     "contact.tag":"Contact","contact.h2":"Let's discuss your project","contact.sub":"Tell us about your task — we will reply within 24 hours with a preliminary assessment and action plan.",
     "contact.email":"Email","contact.phone":"Phone","contact.office":"Office","contact.address":"Tashkent, Yashnabad district, Shahrisabz str., 85","contact.response":"Response time","contact.responseVal":"Within 24 hours",
-    "form.name":"Name","form.namePh":"Your name","form.company":"Company","form.companyPh":"Company name","form.phone":"Phone","form.message":"Message","form.messagePh":"Describe your task or project...","form.submit":"Send request →","form.sending":"Sending...","form.success":"Request sent — we will get back to you within 24 hours ✓","form.error":"Sending failed. Please try again.","form.errorRequired":"Please fill in your name and email.",
+    "form.name":"Name","form.namePh":"Your name","form.company":"Company","form.companyPh":"Company name","form.phone":"Phone","form.message":"Message","form.messagePh":"Describe your task or project...","form.submit":"Send request →","form.sending":"Sending...","form.success":"Request sent — we will get back to you within 24 hours ✓","form.error":"Sending failed. Please try again.","form.errorRequired":"Please fix the highlighted fields.","form.errorName":"Enter a valid name (at least 2 letters).","form.errorEmail":"Enter a valid email address.","form.errorPhone":"Enter a valid phone number.",
     "footer.desc":"We build technology that helps financial businesses grow faster.","footer.solutions":"Solutions","footer.company":"Company","footer.career":"Careers","footer.contacts":"Contact","footer.legal":"Legal","footer.privacy":"Privacy policy","footer.terms":"Terms of use","footer.offer":"Public offer","footer.copy":"© 2026 ANOR TECH. All rights reserved."
   },
   uz: {
@@ -557,7 +566,7 @@ const T = {
     "news.a3.tag":"Tahlil","news.a3.title":"Kreditlashda ML skoring: riskni baholashning yangi yondashuvlari","news.a3.desc":"Kredit modellarini qurish zamonaviy usullariga umumiy ko'rinish",
     "contact.tag":"Aloqa","contact.h2":"Loyihangizni muhokama qilaylik","contact.sub":"Vazifa haqida gapirib bering — 24 soat ichida dastlabki baho va harakat rejasi bilan javob beramiz.",
     "contact.email":"Email","contact.phone":"Telefon","contact.office":"Ofis","contact.address":"Toshkent sh., Yashnobod tumani, Shahrisabz ko'ch., 85-uy","contact.response":"Javob vaqti","contact.responseVal":"24 soat ichida",
-    "form.name":"Ism","form.namePh":"Ismingiz","form.company":"Kompaniya","form.companyPh":"Kompaniya nomi","form.phone":"Telefon","form.message":"Xabar","form.messagePh":"Vazifa yoki loyihangizni tasvirlab bering...","form.submit":"So'rov yuborish →","form.sending":"Yuborilmoqda...","form.success":"So'rov yuborildi — 24 soat ichida siz bilan bog'lanamiz ✓","form.error":"Yuborishda xatolik. Iltimos, qaytadan urinib ko'ring.","form.errorRequired":"Iltimos, ism va emailni to'ldiring.",
+    "form.name":"Ism","form.namePh":"Ismingiz","form.company":"Kompaniya","form.companyPh":"Kompaniya nomi","form.phone":"Telefon","form.message":"Xabar","form.messagePh":"Vazifa yoki loyihangizni tasvirlab bering...","form.submit":"So'rov yuborish →","form.sending":"Yuborilmoqda...","form.success":"So'rov yuborildi — 24 soat ichida siz bilan bog'lanamiz ✓","form.error":"Yuborishda xatolik. Iltimos, qaytadan urinib ko'ring.","form.errorRequired":"Iltimos, belgilangan maydonlarni to'g'rilang.","form.errorName":"To'g'ri ism kiriting (kamida 2 harf).","form.errorEmail":"To'g'ri email manzil kiriting.","form.errorPhone":"To'g'ri telefon raqam kiriting.",
     "footer.desc":"Moliyaviy biznesning tezroq o'sishiga yordam beradigan texnologiyalar yaratamiz.","footer.solutions":"Yechimlar","footer.company":"Kompaniya","footer.career":"Karyera","footer.contacts":"Aloqa","footer.legal":"Huquqiy ma'lumot","footer.privacy":"Maxfiylik siyosati","footer.terms":"Foydalanish shartlari","footer.offer":"Oferta","footer.copy":"© 2026 ANOR TECH. Barcha huquqlar himoyalangan."
   }
 };
@@ -632,6 +641,53 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   draw();
 })();
 
+// ─── FORM VALIDATION ────────────────────────────────────────────
+const FORM_FIELDS = [
+  { id: 'f-name', errId: 'err-name', required: true, msgKey: 'form.errorName',
+    test: v => /^[\p{L}\s'’ʻ-]{2,60}$/u.test(v) },
+  { id: 'f-email', errId: 'err-email', required: true, msgKey: 'form.errorEmail',
+    test: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) },
+  { id: 'f-phone', errId: 'err-phone', wrapperId: 'phone-wrap', required: false, msgKey: 'form.errorPhone',
+    test: v => /^\d{2} \d{3} \d{2} \d{2}$/.test(v) },
+];
+
+function validateField(f) {
+  const input = document.getElementById(f.id);
+  const errEl = document.getElementById(f.errId);
+  const invalidTarget = document.getElementById(f.wrapperId || f.id);
+  const val = input.value.trim();
+  const ok = val ? f.test(val) : !f.required;
+  invalidTarget.classList.toggle('invalid', !ok);
+  if (errEl) {
+    const dict = T[currentLang];
+    errEl.textContent = ok ? '' : (dict[f.msgKey] || '');
+    errEl.classList.toggle('show', !ok);
+  }
+  return ok;
+}
+
+function validateForm() {
+  let valid = true;
+  FORM_FIELDS.forEach(f => { if (!validateField(f)) valid = false; });
+  return valid;
+}
+
+FORM_FIELDS.forEach(f => {
+  const input = document.getElementById(f.id);
+  input.addEventListener('input', () => validateField(f));
+  input.addEventListener('blur', () => validateField(f));
+});
+
+// format phone input as "xx xxx xx xx" (9 digits, Uzbekistan local number)
+document.getElementById('f-phone').addEventListener('input', e => {
+  const digits = e.target.value.replace(/\D/g, '').slice(0, 9);
+  let out = digits.slice(0, 2);
+  if (digits.length > 2) out += ' ' + digits.slice(2, 5);
+  if (digits.length > 5) out += ' ' + digits.slice(5, 7);
+  if (digits.length > 7) out += ' ' + digits.slice(7, 9);
+  e.target.value = out;
+});
+
 // ─── FORM ────────────────────────────────────────────────────────
 async function submitForm(e) {
   e.preventDefault();
@@ -639,15 +695,12 @@ async function submitForm(e) {
   const status = document.getElementById('form-status');
   const dict = T[currentLang];
 
-  // basic validation
-  const email = document.getElementById('f-email').value.trim();
-  const name = document.getElementById('f-name').value.trim();
-  if (!name || !email) {
+  if (!validateForm()) {
     status.style.display = 'block';
     status.style.background = 'rgba(200,0,75,0.12)';
     status.style.border = '1px solid rgba(200,0,75,0.3)';
     status.style.color = '#ff6b9d';
-    status.textContent = dict['form.errorRequired'] || 'Пожалуйста, заполните имя и email.';
+    status.textContent = dict['form.errorRequired'] || 'Пожалуйста, исправьте отмеченные поля.';
     return;
   }
 
@@ -664,7 +717,7 @@ async function submitForm(e) {
         name: document.getElementById('f-name').value,
         company: document.getElementById('f-company').value,
         email: document.getElementById('f-email').value,
-        phone: document.getElementById('f-phone').value,
+        phone: document.getElementById('f-phone').value ? `+998 ${document.getElementById('f-phone').value}` : '',
         message: document.getElementById('f-message').value,
         _subject: `Новая заявка с сайта ANOR TECH — ${document.getElementById('f-name').value}`
       })
@@ -678,6 +731,7 @@ async function submitForm(e) {
       status.textContent = dict['form.success'] || 'Заявка отправлена ✓';
       // clear fields
       ['f-name','f-company','f-email','f-phone','f-message'].forEach(id => document.getElementById(id).value = '');
+      FORM_FIELDS.forEach(f => { document.getElementById(f.wrapperId || f.id).classList.remove('invalid'); const el = document.getElementById(f.errId); if (el) { el.textContent = ''; el.classList.remove('show'); } });
       btn.textContent = dict['form.submit'];
       btn.style.opacity = '1';
       btn.disabled = false;
