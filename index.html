@@ -80,8 +80,9 @@ section{min-height:100vh;display:flex;align-items:center;padding:100px 0;border-
 /* SOLUTIONS */
 #solutions{background:var(--bg)}
 .sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:48px}
-.sol-card{background:var(--bg);padding:32px;transition:background .2s;cursor:default}
+.sol-card{background:var(--bg);padding:32px;transition:background .2s,box-shadow .4s;cursor:default}
 .sol-card:hover{background:var(--surface)}
+.sol-card.highlight{background:var(--surface);box-shadow:inset 0 0 0 1px var(--red-border),0 0 28px rgba(200,0,75,0.22)}
 .sol-ico{font-size:26px;margin-bottom:16px}
 .sol-card h3{font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
 .sol-card p{font-size:14px;color:var(--text2);line-height:1.6}
@@ -695,6 +696,28 @@ async function submitForm(e) {
   }
 }
 </script>
+// ─── FOOTER SOLUTION LINKS ──────────────────────────────────────
+document.querySelectorAll('.footer-grid a[href^="#sol-c"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const cardId = link.getAttribute('href').slice(1);
+    const card = document.getElementById(cardId);
+    const section = document.getElementById('solutions');
+    if (!section || !card) return;
+
+    const navHeight = document.querySelector('nav').offsetHeight;
+    const top = section.getBoundingClientRect().top + window.scrollY - navHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
+
+    document.querySelectorAll('.sol-card.highlight').forEach(el => el.classList.remove('highlight'));
+    setTimeout(() => {
+      card.classList.add('highlight');
+      setTimeout(() => card.classList.remove('highlight'), 1800);
+    }, 500);
+  });
+});
+</script>
+
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
